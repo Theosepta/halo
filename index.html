@@ -3,33 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monitoring Panel Surya - Simulasi</title>
+  <title>Monitoring Laut - Simulasi</title>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-gauges@2.1.7/gauge.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  
   <style>
     body {
-      background: #f5f5f5;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       padding: 20px;
       margin: 0;
-    }
-    h1 {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 5px;
-    }
-    h2.subtitle {
-      text-align: center;
-      font-size: 22px;
-      color: #555;
-      margin-top: 0;
-      margin-bottom: 20px;
+      color: #fff;
     }
     h2 {
       text-align: center;
       margin-bottom: 10px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .description {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 30px;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
     }
     .row {
       display: flex;
@@ -39,114 +38,249 @@
       margin-bottom: 30px;
     }
     .box {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.95);
       padding: 15px;
       border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .box:hover {
+      transform: translateY(-5px);
+    }
+    .gauge-container {
+      margin-bottom: 10px;
+    }
+    .chart-container {
+      position: relative;
+      height: 200px;
+      width: 350px;
+    }
+    .chart-info {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333; /* Changed from white to black for better readability */
+      max-width: 350px;
+      text-align: left;
+    }
+    .info-panel {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .info-panel h3 {
+      color: #1a2a6c;
+      margin-top: 0;
+    }
+    .info-panel p {
+      color: #333; /* Changed from white to black for better readability */
+      line-height: 1.5;
+    }
+    h3 {
+      color: #333; /* Changed from white to black for better readability */
+    }
+    .parameter-title {
+      color: #333; /* Changed from white to black for better readability */
+      font-weight: bold;
+      margin-bottom: 5px;
     }
   </style>
 </head>
 <body>
 
-<h1>ELEKTRONIKA DAYA</h1>
-<h2 class="subtitle">KELOMPOK 7</h2>
+<h2>Monitoring Laut - Simulasi Real-time</h2>
 
-<h2>(077,051,043)</h2>
+<div class="description">
+  <p>Sistem ini mensimulasikan kondisi laut secara real-time dengan tiga parameter utama: kedalaman, tekanan, dan kadar oksigen terlarut. Data diperbarui setiap 3 detik.</p>
+</div>
 
 <div class="row">
 
-  <!-- Intensitas Cahaya -->
+  <!-- KEDALAMAN -->
   <div class="box">
-    <canvas id="gaugeCahaya" width="160" height="400"
-      data-type="linear-gauge"
-      data-min-value="0"
-      data-max-value="1000"
-      data-major-ticks="0,200,400,600,800,1000"
-      data-units="Lux"
-      data-title="Intensitas Cahaya"
-      data-bar-width="15"
-      data-glow="true"></canvas>
+    <div class="gauge-container">
+      <canvas id="gaugeDepth" width="160" height="400"
+        data-type="linear-gauge"
+        data-min-value="0"
+        data-max-value="200"
+        data-major-ticks="0,40,80,120,160,200"
+        data-units="Meter"
+        data-title="Kedalaman Laut"
+        data-bar-width="15"
+        data-color-bar-progress="#1a2a6c"
+        data-glow="true">
+      </canvas>
+    </div>
+    <div class="chart-info">
+      <div class="parameter-title">Kedalaman Laut</div>
+      Menunjukkan jarak vertikal dari permukaan laut ke dasar laut. Nilai berkisar antara 0-200 meter. Kedalaman mempengaruhi tekanan dan kadar oksigen dalam air.
+    </div>
   </div>
 
-  <!-- Tegangan Panel -->
+  <!-- TEKANAN -->
   <div class="box">
-    <canvas id="gaugeVPanel" width="250" height="250"
-      data-type="radial-gauge"
-      data-min-value="0"
-      data-max-value="30"
-      data-major-ticks="0,5,10,15,20,25,30"
-      data-title="Tegangan Panel Surya"
-      data-units="V"
-      data-animation="true"
-      data-glow="true"></canvas>
+    <div class="gauge-container">
+      <canvas id="gaugePressure" width="250" height="250"
+        data-type="radial-gauge"
+        data-min-value="1"
+        data-max-value="25"
+        data-major-ticks="1,5,10,15,20,25"
+        data-title="Tekanan"
+        data-units="atm"
+        data-color-bar-progress="#b21f1f"
+        data-animation="true"
+        data-glow="true">
+      </canvas>
+    </div>
+    <div class="chart-info">
+      <div class="parameter-title">Tekanan Hidrostatik</div>
+      Menunjukkan tekanan hidrostatik pada kedalaman tertentu. Tekanan meningkat sekitar 1 atm setiap 10 meter kedalaman. Tekanan tinggi dapat mempengaruhi organisme laut.
+    </div>
   </div>
 
-  <!-- Arus Beban -->
+  <!-- OKSIGEN -->
   <div class="box">
-    <canvas id="gaugeArus" width="250" height="250"
-      data-type="radial-gauge"
-      data-min-value="0"
-      data-max-value="20"
-      data-major-ticks="0,4,8,12,16,20"
-      data-title="Arus Beban"
-      data-units="A"
-      data-animation="true"
-      data-glow="true"></canvas>
+    <div class="gauge-container">
+      <canvas id="gaugeOksigen" width="250" height="250"
+        data-type="radial-gauge"
+        data-min-value="0"
+        data-max-value="10"
+        data-major-ticks="0,2,4,6,8,10"
+        data-title="Oksigen Terlarut"
+        data-units="mg/L"
+        data-color-bar-progress="#00a86b"
+        data-animation="true"
+        data-glow="true">
+      </canvas>
+    </div>
+    <div class="chart-info">
+      <div class="parameter-title">Oksigen Terlarut</div>
+      Menunjukkan konsentrasi oksigen yang terlarut dalam air. Nilai ini menurun seiring bertambahnya kedalaman karena berkurangnya cahaya matahari dan aktivitas fotosintesis.
+    </div>
   </div>
 
 </div>
 
-<!-- HANYA GRAFIK SAJA -->
+<!-- GRAFIK -->
 <div class="row">
-  <div class="box"><canvas id="chartCahaya" width="350" height="200"></canvas><h3>Grafik Intensitas Cahaya</h3></div>
-  <div class="box"><canvas id="chartVPanel" width="350" height="200"></canvas><h3>Grafik Tegangan Panel</h3></div>
-  <div class="box"><canvas id="chartArus" width="350" height="200"></canvas><h3>Grafik Arus Beban</h3></div>
-  <div class="box"><canvas id="chartFrek" width="350" height="200"></canvas><h3>Grafik Frekuensi</h3></div>
+  <div class="box">
+    <div class="chart-container">
+      <canvas id="chartDepth"></canvas>
+    </div>
+    <h3>Grafik Kedalaman</h3>
+    <div class="chart-info">
+      Grafik ini menunjukkan perubahan kedalaman laut dari waktu ke waktu. Kedalaman bervariasi karena pengaruh arus laut, pasang surut, dan topografi dasar laut.
+    </div>
+  </div>
+  <div class="box">
+    <div class="chart-container">
+      <canvas id="chartPressure"></canvas>
+    </div>
+    <h3>Grafik Tekanan</h3>
+    <div class="chart-info">
+      Grafik ini menunjukkan perubahan tekanan hidrostatik. Tekanan berbanding lurus dengan kedalaman laut. Perubahan tekanan mempengaruhi organisme laut dan peralatan bawah air.
+    </div>
+  </div>
+  <div class="box">
+    <div class="chart-container">
+      <canvas id="chartOksigen"></canvas>
+    </div>
+    <h3>Grafik Oksigen Terlarut</h3>
+    <div class="chart-info">
+      Grafik ini menunjukkan perubahan kadar oksigen terlarut. Oksigen berkurang seiring bertambahnya kedalaman. Kadar oksigen yang rendah dapat membatasi kehidupan laut.
+    </div>
+  </div>
+</div>
+
+<div class="info-panel">
+  <h3>Hubungan Antar Parameter Laut</h3>
+  <p><strong>Kedalaman vs Tekanan:</strong> Tekanan hidrostatik meningkat sekitar 1 atmosfer setiap 10 meter kedalaman. Hubungan ini bersifat linear dan dapat dihitung dengan rumus P = 1 + (kedalaman/10) atm.</p>
+  <p><strong>Kedalaman vs Oksigen:</strong> Kadar oksigen terlarut umumnya menurun seiring bertambahnya kedalaman karena berkurangnya cahaya matahari dan aktivitas fotosintesis oleh fitoplankton.</p>
+  <p><strong>Tekanan vs Oksigen:</strong> Tekanan tinggi pada kedalaman yang besar dapat mempengaruhi kelarutan gas, termasuk oksigen, dalam air laut. Namun, efek ini biasanya lebih kecil dibandingkan pengaruh suhu dan salinitas.</p>
+  <p><strong>Pentingnya Monitoring:</strong> Memantau parameter ini penting untuk penelitian kelautan, operasi penyelaman, eksplorasi bawah air, dan memahami ekosistem laut.</p>
 </div>
 
 <script>
 window.onload = function () {
 
   // GAUGES
-  let gCahaya = document.gauges.get('gaugeCahaya');
-  let gVPanel = document.gauges.get('gaugeVPanel');
-  let gArus   = document.gauges.get('gaugeArus');
+  let gDepth    = document.gauges.get('gaugeDepth');
+  let gPressure = document.gauges.get('gaugePressure');
+  let gOxygen   = document.gauges.get('gaugeOksigen');
 
   // CHART CREATOR
-  function createChart(id, min, max) {
+  function createChart(id, min, max, color, label) {
     return new Chart(document.getElementById(id).getContext("2d"), {
       type: 'line',
       data: {
         labels: Array(20).fill(""),
         datasets: [{
-          data: Array(20).fill(0),
+          label: label,
+          data: Array(20).fill(min),
           borderWidth: 2,
-          tension: 0.3
+          tension: 0.3,
+          borderColor: color,
+          backgroundColor: color + "20", // Warna dengan transparansi
+          pointBackgroundColor: color,
+          fill: true
         }]
       },
-      options: { animation: false, scales: { y: { min, max }} }
+      options: { 
+        animation: false, 
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: { 
+          y: { 
+            min, 
+            max,
+            grid: {
+              color: 'rgba(0,0,0,0.1)'
+            },
+            ticks: {
+              color: '#333' // Changed from white to black for better readability
+            }
+          },
+          x: {
+            grid: {
+              display: false
+            },
+            ticks: {
+              color: '#333' // Changed from white to black for better readability
+            }
+          }
+        } 
+      }
     });
   }
-
-  let chartCahaya = createChart("chartCahaya", 0, 1000);
-  let chartVPanel = createChart("chartVPanel", 0, 30);
-  let chartArus   = createChart("chartArus", 0, 20);
-  let chartFrek   = createChart("chartFrek", 40, 60);
+  
+  let chartDepth    = createChart("chartDepth", 0, 200, "#1a2a6c", "Kedalaman");
+  let chartPressure = createChart("chartPressure", 1, 25, "#b21f1f", "Tekanan");
+  let chartOxygen   = createChart("chartOksigen", 0, 10, "#00a86b", "Oksigen");
 
   // UPDATE LOOP (3 detik)
   setInterval(() => {
 
-    let cahaya = Math.random() * 1000;
+    // SIMULASI KEDALAMAN (0–200 m)
+    let depth = Math.random() * 200;
 
-    let vpanel = ((cahaya / 1000) * 30).toFixed(1);
-    let arus   = ((vpanel / 30) * 10).toFixed(1);
-    let frek   = 50.0;
+    // TEKANAN = 1 atm + (0.1 * meter)
+    let pressure = 1 + (depth / 10);
+
+    // OKSIGEN: makin dalam makin sedikit (model sederhana)
+    let oxygen = 8.5 - (depth * 0.02);
+    if (oxygen < 3) oxygen = 3; // batas minimum biologis
 
     // Update Gauges
-    gCahaya.value = cahaya;
-    gVPanel.value = Number(vpanel);
-    gArus.value   = Number(arus);
+    gDepth.value    = depth;
+    gPressure.value = pressure;
+    gOxygen.value   = oxygen;
 
     // Update Grafik
     function push(chart, val) {
@@ -155,10 +289,9 @@ window.onload = function () {
       chart.update();
     }
 
-    push(chartCahaya, cahaya);
-    push(chartVPanel, vpanel);
-    push(chartArus, arus);
-    push(chartFrek, frek);
+    push(chartDepth, depth);
+    push(chartPressure, pressure.toFixed(2));
+    push(chartOxygen, oxygen.toFixed(2));
 
   }, 3000);
 
